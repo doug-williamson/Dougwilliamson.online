@@ -1,0 +1,22 @@
+@import './styles/custom-theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Angular Material M3 custom theme — navy/green/gold */
+html {
+  --mat-sys-primary: #0C2340;
+  --mat-sys-secondary: #00843D;
+  --mat-sys-tertiary: #C99700;
+  --mat-sys-surface: #fdfcff;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-on-secondary: #ffffff;
+  --mat-sys-on-tertiary: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}

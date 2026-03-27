@@ -1,0 +1,19 @@
+/* FolioKit token overrides — Light mode */
+:root {
+  --text-accent: #006d31;
+  --btn-primary-bg: #0C2340;
+  --logo-bg: #0C2340;
+  --logo-dot: #C99700;
+  --focus-ring: rgba(12, 35, 64, 0.22);
+  --border-accent: #006d31;
+}
+
+/* FolioKit token overrides — Dark mode */
+[data-theme='dark'] {
+  --text-accent: #71dc8a;
+  --btn-primary-bg: #C99700;
+  --logo-bg: #C99700;
+  --logo-dot: #71dc8a;
+  --focus-ring: rgba(201, 151, 0, 0.22);
+  --border-accent: #71dc8a;
+}
