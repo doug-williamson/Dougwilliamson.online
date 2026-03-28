@@ -4,6 +4,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { BLOG_SEO_SERVICE, provideFolioKit } from '@foliokit/cms-core';
+import { provideCmsUiMatIcons } from '@foliokit/cms-ui';
 import { MARKED_OPTIONS, provideMarkdown } from 'ngx-markdown';
 
 import { routes } from './app.routes';
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
     provideAnimations(),
+    provideCmsUiMatIcons(),
     provideFolioKit({
       firebaseConfig: environment.firebaseConfig,
       siteId: 'dougwilliamson',
