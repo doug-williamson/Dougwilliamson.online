@@ -1,0 +1,15 @@
+@use '@foliokit/cms-ui/styles/tokens';
+@use '@foliokit/cms-ui/styles/theme';
+@use '@foliokit/cms-ui/styles/reset';
+@use '@foliokit/cms-ui/styles/typography';
+@use '@foliokit/cms-ui/styles/focus';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}

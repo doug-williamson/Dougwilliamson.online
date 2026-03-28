@@ -1,0 +1,72 @@
+@use '@foliokit/cms-ui/styles/tokens';
+@use '@foliokit/cms-ui/styles/reset';
+@use '@foliokit/cms-ui/styles/typography';
+@use '@foliokit/cms-ui/styles/theme';
+
+@use './styles/custom-theme';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Angular Material M3 — aligned with FolioKit blog demo (teal + neutral) */
+html {
+  height: 100%;
+  --mat-sys-primary: #0f766e;
+  --mat-sys-secondary: #14b8a6;
+  --mat-sys-tertiary: #0d9488;
+  --mat-sys-surface: #fafafa;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-on-secondary: #ffffff;
+  --mat-sys-on-tertiary: #ffffff;
+}
+
+html[data-theme='dark'],
+:root[data-theme='dark'] {
+  --mat-sys-primary: #2dd4bf;
+  --mat-sys-secondary: #14b8a6;
+  --mat-sys-tertiary: #5eead4;
+  --mat-sys-surface: #0f172a;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+}
+
+/* FolioKit app shell host + Material drawer fill remaining height */
+folio-app-shell {
+  display: block;
+  height: 100%;
+}
+
+.folio-shell-container,
+.mat-drawer-container {
+  height: 100%;
+}
+
+/* FolioKit AppShell: toolbar uses <span class="flex-1">; Tailwind won't emit utilities from @foliokit in node_modules */
+mat-toolbar.folio-toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+mat-toolbar.folio-toolbar .flex-1 {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+a.mat-mdc-list-item.active-link {
+  background-color: color-mix(in srgb, var(--mat-sys-primary, #0f766e) 12%, transparent);
+}

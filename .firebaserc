@@ -1,19 +1,12 @@
 {
   "projects": {
-    "default": "dougwilliamson-dev",
-    "prod": "dougwilliamson-prod"
+    "default": "dougwilliamson-online"
   },
   "targets": {
-    "dougwilliamson-dev": {
+    "dougwilliamson-online": {
       "hosting": {
-        "blog": ["dougwilliamson"],
-        "admin": ["dougwilliamson-admin"]
-      }
-    },
-    "dougwilliamson-prod": {
-      "hosting": {
-        "blog": ["dougwilliamson"],
-        "admin": ["dougwilliamson-admin"]
+        "blog": ["dougwilliamson-online"],
+        "admin": ["dougwilliamson-online-admin"]
       }
     }
   }
