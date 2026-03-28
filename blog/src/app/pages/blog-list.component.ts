@@ -1,15 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { PostService } from '@foliokit/cms-core';
 
 @Component({
   selector: 'app-blog-list',
-  imports: [AsyncPipe, DatePipe, RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DatePipe, RouterLink],
   template: `
     <div class="blog-list">
       <h1>Blog</h1>
-      @if (posts$ | async; as posts) {
+      @if (posts(); as posts) {
         @if (posts.length === 0) {
           <p class="empty">No posts yet. Check back soon!</p>
         }
@@ -91,5 +93,5 @@ import { PostService } from '@foliokit/cms-core';
 })
 export class BlogListComponent {
   private readonly postService = inject(PostService);
-  readonly posts$ = this.postService.getPublishedPosts();
+  readonly posts = toSignal(this.postService.getPublishedPosts());
 }

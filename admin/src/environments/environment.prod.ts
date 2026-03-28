@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  adminEmail: 'YOUR_ADMIN_EMAIL',
   firebaseConfig: {
     apiKey: 'YOUR_API_KEY',
     authDomain: 'dougwilliamson-prod.firebaseapp.com',

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AboutPageComponent, LinksPageComponent, CMS_ROUTE_DATA_KEY } from '@foliokit/cms-ui';
+import { AboutPageComponent, LinksPageComponent, ABOUT_ROUTE_DATA_KEY, CMS_ROUTE_DATA_KEY } from '@foliokit/cms-ui';
 
 import { HomePageComponent } from './pages/home-page.component';
 import { BlogListComponent } from './pages/blog-list.component';
@@ -13,7 +13,7 @@ export const routes: Routes = [
   {
     path: 'about',
     component: AboutPageComponent,
-    resolve: { [CMS_ROUTE_DATA_KEY]: aboutPageResolver },
+    resolve: { [ABOUT_ROUTE_DATA_KEY]: aboutPageResolver },
   },
   {
     path: 'links',

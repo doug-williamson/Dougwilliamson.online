@@ -1,9 +1,8 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { provideFirebase, type NavItem } from '@foliokit/cms-core';
+import { provideFolioKit, type NavItem } from '@foliokit/cms-core';
 import { SHELL_CONFIG } from '@foliokit/cms-ui';
 import { MARKED_OPTIONS, provideMarkdown } from 'ngx-markdown';
 
@@ -22,9 +21,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideAnimationsAsync(),
     provideHttpClient(withFetch()),
-    provideFirebase(environment.firebaseConfig),
+    provideFolioKit({ firebaseConfig: environment.firebaseConfig, siteId: 'dougwilliamson' }),
     provideMarkdown({ markedOptions: { provide: MARKED_OPTIONS, useValue: { gfm: true } } }),
     {
       provide: SHELL_CONFIG,

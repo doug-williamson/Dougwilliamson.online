@@ -1,15 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { PostService } from '@foliokit/cms-core';
 import { MarkdownComponent } from '@foliokit/cms-markdown';
 
 @Component({
   selector: 'app-blog-post',
-  imports: [AsyncPipe, DatePipe, MarkdownComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DatePipe, MarkdownComponent],
   template: `
-    @if (post$ | async; as post) {
+    @if (post(); as post) {
       <article class="post-detail">
         <header>
           <h1>{{ post.title }}</h1>
@@ -73,7 +75,9 @@ export class BlogPostComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly postService = inject(PostService);
 
-  readonly post$ = this.route.paramMap.pipe(
-    switchMap((params) => this.postService.getPostBySlug(params.get('slug')!)),
+  readonly post = toSignal(
+    this.route.paramMap.pipe(
+      switchMap((params) => this.postService.getPostBySlug(params.get('slug')!)),
+    ),
   );
 }
