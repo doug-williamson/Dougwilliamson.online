@@ -1,12 +1,13 @@
 export const environment = {
   production: true,
-  adminEmail: 'YOUR_ADMIN_EMAIL',
+  useEmulator: false,
+  adminEmail: 'dev.foliokit@gmail.com',
   firebaseConfig: {
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'dougwilliamson-prod.firebaseapp.com',
-    projectId: 'dougwilliamson-prod',
-    storageBucket: 'dougwilliamson-prod.firebasestorage.app',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    appId: 'YOUR_APP_ID',
+    apiKey: 'AIzaSyDAR62TZbezrBOZ-nld4oz4DaSlZh82o2k',
+    authDomain: 'dougwilliamson-online.firebaseapp.com',
+    projectId: 'dougwilliamson-online',
+    storageBucket: 'dougwilliamson-online.firebasestorage.app',
+    messagingSenderId: '89733015991',
+    appId: '1:89733015991:web:cae4dbde6b84fef7bd2032',
   },
 };

@@ -2,16 +2,17 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideFolioKit } from '@foliokit/cms-core';
-import { provideAdminKit, adminRoutes } from '@foliokit/cms-admin-ui';
+import { provideAdminKit } from '@foliokit/cms-admin-ui';
 
+import { appRoutes } from './app.routes';
 import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(adminRoutes, withComponentInputBinding()),
+    provideRouter(appRoutes, withComponentInputBinding()),
     provideHttpClient(withFetch()),
-    provideFolioKit({ firebaseConfig: environment.firebaseConfig, siteId: 'dougwilliamson' }),
+    provideFolioKit({ firebaseConfig: environment.firebaseConfig, siteId: 'dougwilliamson', useEmulator: environment.useEmulator }),
     provideAdminKit({ adminEmail: environment.adminEmail }),
   ],
 };
