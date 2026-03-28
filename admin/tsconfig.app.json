@@ -4,21 +4,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": [],
-    "paths": {
-      "@foliokit/cms-core": ["./node_modules/@foliokit/cms-core/src/index.ts"],
-      "@foliokit/cms-ui": ["./node_modules/@foliokit/cms-ui/src/index.ts"],
-      "@foliokit/cms-markdown": ["./node_modules/@foliokit/cms-markdown/src/index.ts"],
-      "@foliokit/cms-admin-ui": ["./node_modules/@foliokit/cms-admin-ui/src/index.ts"]
-    }
+    "types": []
   },
   "include": [
-    "src/**/*.ts",
-    "node_modules/@foliokit/*/src/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
-    "src/**/*.spec.ts",
-    "node_modules/@foliokit/*/src/**/*.spec.ts",
-    "node_modules/@foliokit/cms-core/src/lib/firebase/firebase-admin.ts"
+    "src/**/*.spec.ts"
   ]
 }
