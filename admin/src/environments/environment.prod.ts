@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   useEmulator: false,
-  adminEmail: 'dev.foliokit@gmail.com',
+  adminEmail: 'douglasmwilliamson@gmail.com',
   firebaseConfig: {
     apiKey: 'AIzaSyDAR62TZbezrBOZ-nld4oz4DaSlZh82o2k',
     authDomain: 'dougwilliamson-online.firebaseapp.com',
