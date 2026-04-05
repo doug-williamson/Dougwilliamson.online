@@ -13,3 +13,52 @@ body {
   font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+// ── Brand palette: Navy / Green / Gold ───────────────────────────────────────
+
+:root {
+  // Angular Material system tokens
+  --mat-sys-primary:    #0C2340;
+  --mat-sys-secondary:  #00843D;
+  --mat-sys-tertiary:   #C99700;
+  --mat-sys-on-primary: #FFFFFF;
+  --mat-sys-on-secondary: #FFFFFF;
+  --mat-sys-on-tertiary:  #000000;
+}
+
+[data-theme="light"] {
+  // Interactive / accent → navy
+  --text-accent:       #0C2340;
+  --btn-primary-bg:    #0C2340;
+  --btn-primary-hover: #0A1C33;
+  --btn-primary-text:  #FFFFFF;
+  // Border accent → green
+  --border-accent:     #00843D;
+  // Focus → navy
+  --focus-ring:        rgba(12, 35, 64, 0.20);
+  --focus-border:      #0C2340;
+  // Navigation active → navy
+  --nav-active-bg:     rgba(12, 35, 64, 0.07);
+  --nav-active-color:  #0C2340;
+  // Logo dot → gold
+  --logo-dot:          #C99700;
+}
+
+[data-theme="dark"] {
+  // Interactive / accent → lighter blue for legibility
+  --text-accent:       #4A90D9;
+  --btn-primary-bg:    #1A4B7C;
+  --btn-primary-hover: #0C2340;
+  --btn-primary-text:  #FFFFFF;
+  // Border accent → green
+  --border-accent:     rgba(0, 132, 61, 0.50);
+  // Focus → light blue
+  --focus-ring:        rgba(74, 144, 217, 0.28);
+  --focus-border:      #4A90D9;
+  // Navigation active → navy-tinted
+  --nav-active-bg:     rgba(12, 35, 64, 0.35);
+  --nav-active-color:  #4A90D9;
+  // Logo
+  --logo-bg:           #0C2340;
+  --logo-dot:          #C99700;
+}

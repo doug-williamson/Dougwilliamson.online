@@ -1,43 +1,43 @@
-/* FolioKit blog demo parity — light */
+/* Brand palette: Navy / Green / Gold — light */
 :root {
-  --text-accent: #0f766e;
-  --btn-primary-bg: #14b8a6;
-  --logo-bg: #000000;
-  --logo-dot: #ffffff;
-  --focus-ring: rgba(20, 184, 166, 0.35);
-  --border-accent: #14b8a6;
+  --text-accent:    #0C2340;
+  --btn-primary-bg: #0C2340;
+  --logo-bg:        #0C2340;
+  --logo-dot:       #C99700;
+  --focus-ring:     rgba(12, 35, 64, 0.20);
+  --border-accent:  #00843D;
 
-  --hero-pill-bg: #d1fae5;
+  --hero-pill-bg:   #d1fae5;
   --hero-pill-text: #065f46;
   --hero-title: #111827;
   --hero-lead: #4b5563;
   --hero-secondary-bg: #ffffff;
-  --hero-secondary-cta: #0f766e;
+  --hero-secondary-cta: #0C2340;
   --hero-secondary-border: #e5e7eb;
-  --hero-secondary-hover-bg: #f0fdfa;
-  --hero-secondary-hover-fg: #0d9488;
-  --hero-secondary-hover-border: #99f6e4;
+  --hero-secondary-hover-bg: rgba(12, 35, 64, 0.05);
+  --hero-secondary-hover-fg: #0A1C33;
+  --hero-secondary-hover-border: rgba(12, 35, 64, 0.30);
 
   --font-hero-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
 }
 
-/* FolioKit blog demo parity — dark */
+/* Brand palette: Navy / Green / Gold — dark */
 [data-theme='dark'] {
-  --text-accent: #5eead4;
-  --btn-primary-bg: #2dd4bf;
-  --logo-bg: #0f172a;
-  --logo-dot: #5eead4;
-  --focus-ring: rgba(45, 212, 191, 0.35);
-  --border-accent: #2dd4bf;
+  --text-accent:    #4A90D9;
+  --btn-primary-bg: #1A4B7C;
+  --logo-bg:        #0C2340;
+  --logo-dot:       #C99700;
+  --focus-ring:     rgba(74, 144, 217, 0.28);
+  --border-accent:  rgba(0, 132, 61, 0.50);
 
-  --hero-pill-bg: rgba(45, 212, 191, 0.12);
-  --hero-pill-text: #5eead4;
+  --hero-pill-bg:   rgba(74, 144, 217, 0.12);
+  --hero-pill-text: #93C5FD;
   --hero-title: #f9fafb;
   --hero-lead: #d1d5db;
   --hero-secondary-bg: transparent;
-  --hero-secondary-cta: #5eead4;
+  --hero-secondary-cta: #4A90D9;
   --hero-secondary-border: #374151;
-  --hero-secondary-hover-bg: rgba(45, 212, 191, 0.08);
-  --hero-secondary-hover-fg: #99f6e4;
-  --hero-secondary-hover-border: #2dd4bf;
+  --hero-secondary-hover-bg: rgba(74, 144, 217, 0.08);
+  --hero-secondary-hover-fg: #93C5FD;
+  --hero-secondary-hover-border: #1A4B7C;
 }
