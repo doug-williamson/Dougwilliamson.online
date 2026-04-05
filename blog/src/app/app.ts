@@ -9,7 +9,7 @@ import { AppShellComponent } from '@foliokit/cms-ui';
 
 const DEFAULT_NAV: NavItem[] = [
   { label: 'Home', url: '/' },
-  { label: 'Blog', url: '/blog' },
+  { label: 'Blog', url: '/posts' },
 ];
 
 @Component({

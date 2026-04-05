@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
           Real-world guides on Angular SSR, Firebase, and the FolioKit CMS toolkit.
         </p>
         <div class="cta">
-          <a routerLink="/blog" class="btn-primary">Read Posts</a>
+          <a routerLink="/posts" class="btn-primary">Read Posts</a>
           <a routerLink="/about" class="btn-secondary">About</a>
         </div>
       </div>
