@@ -1,0 +1,11 @@
+{
+  "name": "dougwilliamson-online",
+  "private": true,
+  "scripts": {
+    "build:admin": "npm --prefix admin ci && npm --prefix admin run build",
+    "deploy:admin": "firebase deploy --only hosting:admin"
+  },
+  "devDependencies": {
+    "firebase-tools": "^14.22.0"
+  }
+}

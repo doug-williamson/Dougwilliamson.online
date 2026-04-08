@@ -5,8 +5,11 @@
   "targets": {
     "dougwilliamson-online": {
       "hosting": {
-        "admin": ["dougwilliamson-online-admin"]
+        "admin": [
+          "dougwilliamson-online-admin"
+        ]
       }
     }
-  }
+  },
+  "etags": {}
 }
