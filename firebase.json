@@ -8,13 +8,6 @@
   },
   "hosting": [
     {
-      "target": "blog",
-      "source": "blog",
-      "frameworksBackend": {
-        "region": "us-central1"
-      }
-    },
-    {
       "target": "admin",
       "public": "admin/dist/admin/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],

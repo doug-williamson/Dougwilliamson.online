@@ -8,14 +8,12 @@ This monorepo contains two Angular 21 applications:
 
 ### `blog/` — Public Site (SSR)
 
-The public-facing website at **dougwilliamson.online**, rendered server-side using Angular SSR with `RenderMode.Server` on all routes.
+The public-facing website at **dougwilliamson.online**, using Angular SSR. Most routes use `RenderMode.Server`; the `/posts` routes use client rendering so Firestore reads stay in the browser (see `blog/src/app/app.routes.server.ts`).
 
 - **Home** — Professional hero landing page
 - **Blog** — Post list and individual post pages
 - **About** — Content managed via Firestore `/pages/about`
 - **Links** — Content managed via Firestore `/pages/links`
-
-Server-side rendering uses the Firebase Admin SDK via `GOOGLE_APPLICATION_CREDENTIALS` to fetch Firestore data on the server.
 
 ### `admin/` — Admin Dashboard (CSR)
 
@@ -52,8 +50,9 @@ Standard FolioKit collections:
 
 | Alias | Project ID |
 |-------|-----------|
-| default | dougwilliamson-dev |
-| prod | dougwilliamson-prod |
+| default | `dougwilliamson-online` |
+
+Use `firebase use` to select the active project before deploy commands.
 
 ## Getting Started
 
@@ -85,21 +84,54 @@ cd admin && npm run build
 
 ### Deploy
 
-```bash
-# Deploy to dev
-firebase deploy --only hosting
+The **blog** and **admin** apps use different Firebase products:
 
-# Deploy to prod
-firebase use prod
-firebase deploy --only hosting
+| App | Product | How it ships |
+|-----|---------|----------------|
+| `blog/` | [Firebase App Hosting](https://firebase.google.com/docs/app-hosting/get-started) | Git-connected rollouts (recommended) or manual rollout from the App Hosting dashboard |
+| `admin/` | [Firebase Hosting](https://firebase.google.com/docs/hosting) | CLI after a production build |
+
+#### Blog (App Hosting)
+
+1. Ensure the [Blaze](https://firebase.google.com/pricing) plan is enabled for project `dougwilliamson-online`.
+2. In the [Firebase console](https://console.firebase.google.com/) → **Hosting & Serverless** → **App Hosting** → **Create backend** (or **Get started** if this is the first backend).
+3. Connect your GitHub repository, set the **app root directory** to `blog`, choose the **live branch** (for example `master`), and pick a region (for example `us-central1`).
+4. After the first rollout completes, [connect a custom domain](https://firebase.google.com/docs/app-hosting/custom-domain) if the public site should use `dougwilliamson.online` / `www` instead of the default `*.hosted.app` URL.
+
+Optional CLI (requires Owner/App Hosting Admin on the project and the App Hosting API enabled):
+
+```bash
+firebase apphosting:backends:create --project dougwilliamson-online \
+  --backend blog \
+  --primary-region us-central1 \
+  --root-dir blog
 ```
 
-## SSR + Admin SDK Setup
+Configuration for the blog runtime lives in [`blog/apphosting.yaml`](blog/apphosting.yaml).
 
-The blog app uses Angular SSR with Firebase Admin SDK for server-side Firestore access. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to point to your service account key file:
+#### Admin (Hosting)
+
+Build the admin app, then deploy only the `admin` Hosting target (site `dougwilliamson-online-admin`):
+
+```bash
+cd admin && npm ci && npm run build
+cd .. && firebase deploy --only hosting:admin --project dougwilliamson-online
+```
+
+#### Rules, indexes, functions
+
+```bash
+firebase deploy --only firestore:rules,firestore:indexes,storage
+# If you use Cloud Functions:
+# firebase deploy --only functions
+```
+
+## Local SSR credentials (optional)
+
+For local `ng serve` or running the SSR server with tooling that expects Application Default Credentials, you can point at a service account JSON file:
 
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account-key.json"
 ```
 
-This is required for the SSR server to authenticate with Firestore when rendering pages on the server.
+On App Hosting, Firebase injects `FIREBASE_CONFIG` and related variables so client SDKs can initialize without extra files; see [Firebase on App Hosting](https://firebase.google.com/docs/app-hosting/firebase-sdks).
