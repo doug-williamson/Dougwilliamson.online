@@ -1,6 +1,9 @@
 export const environment = {
   production: false,
-  useEmulator: false,
+  // Use with Firebase emulators (see `admin/package.json` → `npm run emulator` from `admin/`).
+  // For production Firestore without emulators, set `false` and deploy repo `firestore.rules`:
+  // `firebase deploy --only firestore:rules` (requires project IAM on dougwilliamson-online).
+  useEmulator: true,
   firebaseConfig: {
     apiKey: 'AIzaSyDAR62TZbezrBOZ-nld4oz4DaSlZh82o2k',
     authDomain: 'dougwilliamson-online.firebaseapp.com',

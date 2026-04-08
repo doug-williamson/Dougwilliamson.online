@@ -5,11 +5,11 @@ import { MatListModule } from '@angular/material/list';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { type NavItem, SiteConfigService } from '@foliokit/cms-core';
-import { AppShellComponent, SHELL_CONFIG, type ShellConfig } from '@foliokit/cms-ui';
+import { AppShellComponent } from '@foliokit/cms-ui';
 
 const DEFAULT_NAV: NavItem[] = [
   { label: 'Home', url: '/' },
-  { label: 'Blog', url: '/blog' },
+  { label: 'Blog', url: '/posts' },
 ];
 
 @Component({
@@ -23,16 +23,6 @@ const DEFAULT_NAV: NavItem[] = [
     MatIconModule,
   ],
   templateUrl: './app.component.html',
-  providers: [
-    {
-      provide: SHELL_CONFIG,
-      useFactory: (): ShellConfig => ({
-        appName: 'Doug Williamson',
-        showAuth: false,
-        nav: DEFAULT_NAV,
-      }),
-    },
-  ],
 })
 export class App {
   private readonly siteConfigService = inject(SiteConfigService);

@@ -9,24 +9,80 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Angular Material M3 — aligned with FolioKit blog demo (teal + neutral) */
+/* Brand palette: Navy / Green / Gold — selectors must match FolioKit `html[data-theme]` so
+   these win over `mat.theme()` + `--mat-sys-primary: var(--teal-*)` from cms-ui `_theme.scss`. */
 html {
   height: 100%;
-  --mat-sys-primary: #0f766e;
-  --mat-sys-secondary: #14b8a6;
-  --mat-sys-tertiary: #0d9488;
-  --mat-sys-surface: #fafafa;
+}
+
+html[data-theme='light'] {
+  --bg: color-mix(in srgb, #0c2340 4.5%, var(--cloud-100));
+  --bg-subtle: color-mix(in srgb, #0c2340 3.5%, var(--cloud-200));
+  --surface-0: #ffffff;
+  --surface-1: color-mix(in srgb, #0c2340 3%, var(--cloud-100));
+  --surface-2: color-mix(in srgb, #0c2340 4%, var(--cloud-200));
+  --surface-3: color-mix(in srgb, #0c2340 5%, var(--cloud-300));
+
+  /* FolioKit components hardcode `--teal-*`; align to brand green + readable neutrals */
+  --teal-50: color-mix(in srgb, #00843d 8%, #ffffff);
+  --teal-100: color-mix(in srgb, #00843d 14%, #f7fafc);
+  --teal-200: color-mix(in srgb, #00843d 20%, #edf2f7);
+  --teal-300: color-mix(in srgb, #00843d 38%, #cbd5e0);
+  --teal-400: #1e9a5e;
+  --teal-500: #00843d;
+  --teal-600: #006d32;
+  --teal-700: #005628;
+  --teal-800: #0a3d24;
+
+  /* Interaction blue for Material filled buttons (navy #0c2340 reads as black on CTAs) */
+  --mat-sys-primary: #1a4b7c;
+  --mat-sys-secondary: #00843d;
+  --mat-sys-tertiary: #c99700;
   --mat-sys-on-primary: #ffffff;
   --mat-sys-on-secondary: #ffffff;
-  --mat-sys-on-tertiary: #ffffff;
+  --mat-sys-on-tertiary: #000000;
+  --mat-sys-on-surface: var(--text-primary);
+  --mat-sys-surface: var(--surface-1);
+  --mat-sys-surface-variant: var(--surface-2);
+  --mat-sys-outline: var(--border-strong);
+  --mat-sys-background: var(--bg);
+
+  --nav-active-bg: rgba(12, 35, 64, 0.07);
+  --nav-active-color: #0c2340;
+
+  /* FolioKit + home hero: same interaction blue as --mat-sys-primary */
+  --btn-primary-bg: #1a4b7c;
+  --btn-primary-hover: #143d62;
 }
 
 html[data-theme='dark'],
 :root[data-theme='dark'] {
-  --mat-sys-primary: #2dd4bf;
-  --mat-sys-secondary: #14b8a6;
-  --mat-sys-tertiary: #5eead4;
-  --mat-sys-surface: #0f172a;
+  --bg: color-mix(in srgb, #0c2340 12%, #1a1f2e);
+  --bg-subtle: color-mix(in srgb, #0c2340 10%, #1e2535);
+  --surface-0: color-mix(in srgb, #0c2340 8%, #242b3d);
+  --surface-1: color-mix(in srgb, #0c2340 9%, #2a3347);
+  --surface-2: color-mix(in srgb, #0c2340 10%, #303b52);
+  --surface-3: color-mix(in srgb, #0c2340 11%, #3a4660);
+
+  --teal-300: #5fd4a0;
+  --teal-400: #34c97a;
+  --teal-500: #00843d;
+
+  --mat-sys-primary: #4a90d9;
+  --mat-sys-secondary: #00843d;
+  --mat-sys-tertiary: #c99700;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-on-secondary: #ffffff;
+  --mat-sys-on-tertiary: #000000;
+  --mat-sys-on-surface: var(--text-primary);
+  --mat-sys-surface: var(--surface-1);
+  --mat-sys-surface-variant: var(--surface-2);
+  --mat-sys-outline: var(--border-strong);
+  --mat-sys-background: var(--bg);
+
+  /* fix: navy-on-dark was near-invisible; green tint matches text-accent in dark mode */
+  --nav-active-bg: rgba(0, 132, 61, 0.15);
+  --nav-active-color: var(--text-accent);
 }
 
 body {
@@ -53,7 +109,7 @@ folio-app-shell {
   height: 100%;
 }
 
-/* FolioKit AppShell: toolbar uses <span class="flex-1">; Tailwind won't emit utilities from @foliokit in node_modules */
+/* FolioKit toolbar flex spacer — kept for specificity; Tailwind now also generates .flex-1 via node_modules scan */
 mat-toolbar.folio-toolbar {
   display: flex;
   flex-direction: row;
@@ -68,5 +124,5 @@ mat-toolbar.folio-toolbar .flex-1 {
 }
 
 a.mat-mdc-list-item.active-link {
-  background-color: color-mix(in srgb, var(--mat-sys-primary, #0f766e) 12%, transparent);
+  background-color: var(--nav-active-bg);
 }

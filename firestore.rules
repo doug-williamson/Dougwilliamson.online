@@ -3,32 +3,50 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // FolioKit SiteConfigService — public read, authenticated admin write
+    // ── Single-tenant (siteId === 'default') root-level paths ──────────────
+
     match /site-config/{docId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Site config — public read, authenticated admin write
+    match /posts/{postId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /authors/{authorId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /tags/{tagId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ── Multi-tenant paths (siteId !== 'default') ──────────────────────────
+    // FolioKit resolves all collection paths to tenants/{tenantId}/...
+    // when siteId is a non-default value (e.g. 'dougwilliamson').
+
+    match /tenants/{tenantId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /tenants/{tenantId}/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ── Legacy /sites paths (kept for backward compatibility) ──────────────
+
     match /sites/{siteId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Posts — published are public, all writes require admin
-    match /sites/{siteId}/posts/{postId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-
-    // Authors — public read, admin write
-    match /sites/{siteId}/authors/{authorId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-
-    // Tags — public read, admin write
-    match /sites/{siteId}/tags/{tagId} {
+    match /sites/{siteId}/{document=**} {
       allow read: if true;
       allow write: if isAdmin();
     }

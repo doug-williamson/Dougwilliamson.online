@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  // Hosted blog: deploy `firestore.rules` at repo root so `tenants/**` reads are allowed.
   useEmulator: false,
   firebaseConfig: {
     apiKey: 'AIzaSyDAR62TZbezrBOZ-nld4oz4DaSlZh82o2k',
