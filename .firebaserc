@@ -5,7 +5,6 @@
   "targets": {
     "dougwilliamson-online": {
       "hosting": {
-        "blog": ["dougwilliamson-online"],
         "admin": ["dougwilliamson-online-admin"]
       }
     }
