@@ -7,7 +7,17 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthService } from '@foliokit/cms-core';
+import {
+  ADMIN_EMAIL,
+  AuthService,
+  FIREBASE_AUTH,
+} from '@foliokit/cms-core';
+import {
+  GoogleAuthProvider,
+  getRedirectResult,
+  signInWithRedirect,
+  type Auth,
+} from 'firebase/auth';
 
 /**
  * Login page used instead of FolioKit's AdminLoginComponent because
@@ -15,8 +25,9 @@ import { AuthService } from '@foliokit/cms-core';
  * Keys missing from the URL (e.g. `redirectTo`) become `undefined` and override
  * input defaults, so `router.navigate([this.redirectTo()])` throws NG04008.
  *
- * This component avoids `input()` names that collide with common query keys and
- * navigates with a fixed post-login URL.
+ * Uses `signInWithRedirect` instead of `AuthService.signInWithGoogle()` (popup)
+ * to avoid Cross-Origin-Opener-Policy console errors from `window.closed` /
+ * `window.close` on the Google OAuth window.
  */
 @Component({
   selector: 'app-admin-login-page',
@@ -37,29 +48,55 @@ import { AuthService } from '@foliokit/cms-core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminLoginPageComponent implements OnInit {
+  private readonly auth = inject(FIREBASE_AUTH) as Auth | null;
   private readonly authService = inject(AuthService);
+  private readonly adminEmail = inject(ADMIN_EMAIL, { optional: true });
   private readonly router = inject(Router);
 
   readonly error = signal<string | null>(null);
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    if (this.auth) {
+      try {
+        const cred = await getRedirectResult(this.auth);
+        if (cred?.user) {
+          await this.finishAfterGoogle(cred.user.email ?? null);
+          return;
+        }
+      } catch (err) {
+        console.error('[Auth] getRedirectResult failed:', err);
+        this.error.set('Sign-in failed. Please try again.');
+      }
+    }
     if (this.authService.isAuthenticated()) {
       void this.router.navigateByUrl('/posts');
     }
   }
 
   async signIn(): Promise<void> {
+    if (!this.auth) {
+      this.error.set('Auth is not available.');
+      return;
+    }
     try {
-      await this.authService.signInWithGoogle();
-      if (!this.authService.isAdmin()) {
-        await this.authService.signOut();
-        this.error.set('Access denied. This account is not authorized.');
-        return;
-      }
-      await this.router.navigateByUrl('/posts');
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'login' });
+      await signInWithRedirect(this.auth, provider);
     } catch (err) {
-      console.error('[Auth] signInWithGoogle failed:', err);
+      console.error('[Auth] signInWithRedirect failed:', err);
       this.error.set('Sign-in failed. Please try again.');
     }
+  }
+
+  private async finishAfterGoogle(email: string | null): Promise<void> {
+    const matchesToken =
+      email != null && this.adminEmail != null && email === this.adminEmail;
+    const ok = this.authService.isAdmin() || matchesToken;
+    if (!ok) {
+      await this.authService.signOut();
+      this.error.set('Access denied. This account is not authorized.');
+      return;
+    }
+    await this.router.navigateByUrl('/posts');
   }
 }

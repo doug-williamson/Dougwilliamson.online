@@ -2,6 +2,42 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Single-site FolioKit tenant (must match provideFolioKit({ siteId: '...' }) in admin).
+    function tenantId() {
+      return 'dougwilliamson';
+    }
+
+    // Must match provideAdminKit({ adminEmail }) / environment (Google sign-in email).
+    function isSiteAdmin() {
+      return isSignedIn()
+        && request.auth.token.email == 'douglasmwilliamson@gmail.com';
+    }
+
+    match /tenants/{t}/posts/{postId} {
+      allow read: if t == tenantId()
+        && (
+          resource.data.status == 'published'
+          || isSiteAdmin()
+        );
+      allow create: if t == tenantId() && isSiteAdmin();
+      allow update, delete: if t == tenantId() && isSiteAdmin();
+    }
+
+    match /tenants/{t}/authors/{authorId} {
+      allow read: if t == tenantId();
+      allow create, update, delete: if t == tenantId() && isSiteAdmin();
+    }
+
+    match /tenants/{t}/site-config/{docId} {
+      allow read: if t == tenantId();
+      allow create, update, delete: if t == tenantId() && isSiteAdmin();
+    }
+
+    match /tenants/{t}/tags/{tagId} {
+      allow read: if t == tenantId();
+      allow create, update, delete: if t == tenantId() && isSiteAdmin();
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
