@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <section class="hero">
       <div class="hero-content">
-        <p class="pill"># FolioKit</p>
+        <p class="pill"># Doug Williamson</p>
         <h1 class="hero-title">Angular development, shipped with confidence.</h1>
         <p class="lead">
           Real-world guides on Angular SSR, Firebase, and the FolioKit CMS toolkit.

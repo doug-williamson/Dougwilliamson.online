@@ -93,6 +93,15 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "prebundle": {
+              "exclude": [
+                "@foliokit/cms-ui",
+                "@foliokit/cms-core",
+                "@foliokit/cms-markdown"
+              ]
+            }
+          },
           "configurations": {
             "production": {
               "buildTarget": "blog:build:production"

@@ -1,37 +1,44 @@
 /* Brand palette: Navy / Green / Gold — light */
 :root {
-  --text-accent:    #0C2340;
-  --btn-primary-bg: #0C2340;
+  /* --text-accent intentionally absent: defer to --teal-600 remap in styles.scss
+     so FolioKit accent elements (links, tag chips, borders) resolve to brand green
+     (#006d32) rather than navy which blends with body text. */
+  --btn-primary-bg:    #1A4B7C;
+  --btn-primary-text:  #ffffff;   /* explicit: prevents FolioKit dark fallback (near-black) bleeding in */
+  --btn-primary-hover: #143D62;
   --logo-bg:        #0C2340;
   --logo-dot:       #C99700;
   --focus-ring:     rgba(12, 35, 64, 0.20);
   --border-accent:  #00843D;
 
-  --hero-pill-bg:   #d1fae5;
-  --hero-pill-text: #065f46;
+  --hero-pill-bg:   color-mix(in srgb, #00843d 16%, #ffffff);
+  --hero-pill-text: #006d32;
   --hero-title: #111827;
   --hero-lead: #4b5563;
   --hero-secondary-bg: #ffffff;
-  --hero-secondary-cta: #0C2340;
+  --hero-secondary-cta: #1A4B7C;
   --hero-secondary-border: #e5e7eb;
-  --hero-secondary-hover-bg: rgba(12, 35, 64, 0.05);
-  --hero-secondary-hover-fg: #0A1C33;
-  --hero-secondary-hover-border: rgba(12, 35, 64, 0.30);
+  --hero-secondary-hover-bg: rgba(26, 75, 124, 0.06);
+  --hero-secondary-hover-fg: #143D62;
+  --hero-secondary-hover-border: rgba(26, 75, 124, 0.35);
 
   --font-hero-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
 }
 
 /* Brand palette: Navy / Green / Gold — dark */
 [data-theme='dark'] {
-  --text-accent:    #4A90D9;
-  --btn-primary-bg: #1A4B7C;
-  --logo-bg:        #0C2340;
+  /* --text-accent intentionally absent: defer to --teal-300 remap (#5fd4a0) so
+     accent elements read as light green in dark mode rather than flat blue. */
+  --btn-primary-bg:    #1A4B7C;
+  --btn-primary-text:  #ffffff;   /* fix: FolioKit dark fallback is var(--slate-950) ≈ #0C0F14 on navy → fails contrast */
+  --btn-primary-hover: #1A3F62;   /* fix: FolioKit dark fallback was teal hover on navy button */
+  --logo-bg:        #1E3A5F;      /* fix: #0C2340 on dark toolbar was ~1.4:1 contrast; lighter navy improves legibility */
   --logo-dot:       #C99700;
   --focus-ring:     rgba(74, 144, 217, 0.28);
   --border-accent:  rgba(0, 132, 61, 0.50);
 
-  --hero-pill-bg:   rgba(74, 144, 217, 0.12);
-  --hero-pill-text: #93C5FD;
+  --hero-pill-bg:   color-mix(in srgb, #00843d 22%, #1e2535);
+  --hero-pill-text: #86efac;
   --hero-title: #f9fafb;
   --hero-lead: #d1d5db;
   --hero-secondary-bg: transparent;

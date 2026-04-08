@@ -14,51 +14,118 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-// ── Brand palette: Navy / Green / Gold ───────────────────────────────────────
+// ── Brand palette: Navy / Green / Gold (selectors match FolioKit `html[data-theme]`) ──
 
-:root {
-  // Angular Material system tokens
-  --mat-sys-primary:    #0C2340;
-  --mat-sys-secondary:  #00843D;
-  --mat-sys-tertiary:   #C99700;
-  --mat-sys-on-primary: #FFFFFF;
-  --mat-sys-on-secondary: #FFFFFF;
-  --mat-sys-on-tertiary:  #000000;
+html[data-theme='light'] {
+  --bg: color-mix(in srgb, #0c2340 4.5%, var(--cloud-100));
+  --bg-subtle: color-mix(in srgb, #0c2340 3.5%, var(--cloud-200));
+  --surface-0: #ffffff;
+  --surface-1: color-mix(in srgb, #0c2340 3%, var(--cloud-100));
+  --surface-2: color-mix(in srgb, #0c2340 4%, var(--cloud-200));
+  --surface-3: color-mix(in srgb, #0c2340 5%, var(--cloud-300));
+
+  --teal-50: color-mix(in srgb, #00843d 8%, #ffffff);
+  --teal-100: color-mix(in srgb, #00843d 14%, #f7fafc);
+  --teal-200: color-mix(in srgb, #00843d 20%, #edf2f7);
+  --teal-300: color-mix(in srgb, #00843d 38%, #cbd5e0);
+  --teal-400: #1e9a5e;
+  --teal-500: #00843d;
+  --teal-600: #006d32;
+  --teal-700: #005628;
+  --teal-800: #0a3d24;
+
+  /* Interaction blue for Material primary (matches blog; navy reads as black on CTAs) */
+  --mat-sys-primary: #1a4b7c;
+  --mat-sys-secondary: #00843d;
+  --mat-sys-tertiary: #c99700;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-on-secondary: #ffffff;
+  --mat-sys-on-tertiary: #000000;
+  --mat-sys-on-surface: var(--text-primary);
+  --mat-sys-surface: var(--surface-1);
+  --mat-sys-surface-variant: var(--surface-2);
+  --mat-sys-outline: var(--border-strong);
+  --mat-sys-background: var(--bg);
+
+  --text-accent: #0c2340;
+  --btn-primary-bg: #1a4b7c;
+  --btn-primary-hover: #143d62;
+  --btn-primary-text: #ffffff;
+  --border-accent: #00843d;
+  --focus-ring: rgba(12, 35, 64, 0.2);
+  --focus-border: #0c2340;
+  --nav-active-bg: rgba(12, 35, 64, 0.07);
+  --nav-active-color: #0c2340;
+  --logo-dot: #c99700;
+
+  /* cms-admin-ui kanban: column stripe uses var(--blue-600) / var(--blue-400) */
+  --blue-600: #00843d;
+  --blue-400: #1e9a5e;
 }
 
-[data-theme="light"] {
-  // Interactive / accent → navy
-  --text-accent:       #0C2340;
-  --btn-primary-bg:    #0C2340;
-  --btn-primary-hover: #0A1C33;
-  --btn-primary-text:  #FFFFFF;
-  // Border accent → green
-  --border-accent:     #00843D;
-  // Focus → navy
-  --focus-ring:        rgba(12, 35, 64, 0.20);
-  --focus-border:      #0C2340;
-  // Navigation active → navy
-  --nav-active-bg:     rgba(12, 35, 64, 0.07);
-  --nav-active-color:  #0C2340;
-  // Logo dot → gold
-  --logo-dot:          #C99700;
+html[data-theme='dark'] {
+  --bg: color-mix(in srgb, #0c2340 12%, #1a1f2e);
+  --bg-subtle: color-mix(in srgb, #0c2340 10%, #1e2535);
+  --surface-0: color-mix(in srgb, #0c2340 8%, #242b3d);
+  --surface-1: color-mix(in srgb, #0c2340 9%, #2a3347);
+  --surface-2: color-mix(in srgb, #0c2340 10%, #303b52);
+  --surface-3: color-mix(in srgb, #0c2340 11%, #3a4660);
+
+  --teal-300: #5fd4a0;
+  --teal-400: #34c97a;
+  --teal-500: #00843d;
+
+  --mat-sys-primary: #4a90d9;
+  --mat-sys-secondary: #00843d;
+  --mat-sys-tertiary: #c99700;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-on-secondary: #ffffff;
+  --mat-sys-on-tertiary: #000000;
+  --mat-sys-on-surface: var(--text-primary);
+  --mat-sys-surface: var(--surface-1);
+  --mat-sys-surface-variant: var(--surface-2);
+  --mat-sys-outline: var(--border-strong);
+  --mat-sys-background: var(--bg);
+
+  --text-accent: #4a90d9;
+  --btn-primary-bg: #1a4b7c;
+  --btn-primary-hover: #0c2340;
+  --btn-primary-text: #ffffff;
+  --border-accent: rgba(0, 132, 61, 0.5);
+  --focus-ring: rgba(74, 144, 217, 0.28);
+  --focus-border: #4a90d9;
+  --nav-active-bg: rgba(12, 35, 64, 0.35);
+  --nav-active-color: #4a90d9;
+  --logo-bg: #0c2340;
+  --logo-dot: #c99700;
+
+  --blue-600: #4a90d9;
+  --blue-400: #34c97a;
 }
 
-[data-theme="dark"] {
-  // Interactive / accent → lighter blue for legibility
-  --text-accent:       #4A90D9;
-  --btn-primary-bg:    #1A4B7C;
-  --btn-primary-hover: #0C2340;
-  --btn-primary-text:  #FFFFFF;
-  // Border accent → green
-  --border-accent:     rgba(0, 132, 61, 0.50);
-  // Focus → light blue
-  --focus-ring:        rgba(74, 144, 217, 0.28);
-  --focus-border:      #4A90D9;
-  // Navigation active → navy-tinted
-  --nav-active-bg:     rgba(12, 35, 64, 0.35);
-  --nav-active-color:  #4A90D9;
-  // Logo
-  --logo-bg:           #0C2340;
-  --logo-dot:          #C99700;
+/* Encapsulated cms-admin-ui accents → brand (components use hardcoded hex; !important wins) */
+folio-admin-setup .done-icon {
+  color: #00843d !important;
+}
+
+folio-settings-page .badge--plan.badge--pro {
+  background: color-mix(in srgb, #0c2340 10%, var(--surface-2)) !important;
+  color: #0c2340 !important;
+}
+
+html[data-theme='dark'] folio-settings-page .badge--plan.badge--pro {
+  background: color-mix(in srgb, #c99700 22%, var(--surface-2)) !important;
+  color: #f3e9c8 !important;
+}
+
+folio-settings-page .badge--plan.badge--agency,
+folio-settings-page .badge--status.badge--trialing {
+  background: color-mix(in srgb, #c99700 28%, #ffffff) !important;
+  color: #5c4100 !important;
+}
+
+html[data-theme='dark'] folio-settings-page .badge--plan.badge--agency,
+html[data-theme='dark'] folio-settings-page .badge--status.badge--trialing {
+  background: color-mix(in srgb, #c99700 18%, var(--surface-2)) !important;
+  color: #e8d5a0 !important;
 }
