@@ -4,7 +4,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { type NavItem, SiteConfigService } from '@foliokit/cms-core';
+import { SiteConfigService } from '@foliokit/cms-core';
+
+interface NavItem { label: string; url: string; }
 import { AppShellComponent } from '@foliokit/cms-ui';
 
 const DEFAULT_NAV: NavItem[] = [
@@ -32,7 +34,7 @@ export class App {
 
   protected readonly navItems = computed(() => {
     const config = this.siteConfig();
-    const base = config?.nav?.length ? config.nav : DEFAULT_NAV;
+    const base: NavItem[] = [...DEFAULT_NAV];
     const extra: NavItem[] = [];
     if (config?.pages?.about?.enabled) {
       extra.push({ label: 'About', url: '/about' });

@@ -1,7 +1,7 @@
 import { type Route, type Routes } from '@angular/router';
 import { createBlogRoutes, LinksPageComponent } from '@foliokit/cms-ui';
+import { createHomeSiteConfigResolver } from '@foliokit/cms-core';
 
-import { HomePageComponent } from './pages/home-page.component';
 import { BlogAboutPageComponent } from './pages/blog-about-page.component';
 
 /**
@@ -11,10 +11,16 @@ import { BlogAboutPageComponent } from './pages/blog-about-page.component';
  *
  * `LinksPageComponent` is registered eagerly to avoid lazy-boundary injector
  * issues with MatIcon on this app (same class of failure as the old `/blog` 404).
+ *
+ * Home route: inject SSR resolver so BlogHomeComponent hydrates from TransferState
+ * without a second Firestore round-trip on the client.
  */
 function patchFolioBlogRoutes(): Route[] {
   const folio = createBlogRoutes() as Route[];
   return folio.map((r) => {
+    if (r.pathMatch === 'full') {
+      return { ...r, resolve: { ...r.resolve, homeSiteConfig: createHomeSiteConfigResolver() } };
+    }
     if (r.path === 'about') {
       return {
         path: 'about',
@@ -37,7 +43,6 @@ function patchFolioBlogRoutes(): Route[] {
 }
 
 export const routes: Routes = [
-  { path: '', component: HomePageComponent },
   { path: 'blog', pathMatch: 'full', redirectTo: 'posts' },
   ...patchFolioBlogRoutes(),
 ];
