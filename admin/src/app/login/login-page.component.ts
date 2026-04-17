@@ -50,6 +50,7 @@ import { AuthService } from '@foliokit/cms-core';
           mat-flat-button
           color="primary"
           style="width: 100%;"
+          [disabled]="loading()"
           (click)="signIn()"
         >
           Sign in with Google
@@ -68,6 +69,7 @@ export class LoginPageComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   protected readonly error = signal<string | null>(null);
+  protected readonly loading = signal(false);
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
@@ -76,6 +78,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   async signIn(): Promise<void> {
+    this.error.set(null);
+    this.loading.set(true);
     try {
       await this.authService.signInWithGoogle();
       if (!this.authService.isAdmin()) {
@@ -86,6 +90,8 @@ export class LoginPageComponent implements OnInit {
       await this.router.navigate([this.redirectTo()]);
     } catch {
       this.error.set('Sign-in failed. Please try again.');
+    } finally {
+      this.loading.set(false);
     }
   }
 }

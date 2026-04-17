@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { signal } from '@angular/core';
 import { LoginPageComponent } from './login-page.component';
 import { AuthService } from '@foliokit/cms-core';
@@ -78,5 +78,33 @@ describe('LoginPageComponent', () => {
     expect(signOutSpy).toHaveBeenCalled();
     const err = fixture.nativeElement.querySelector('[data-testid="error"]');
     expect(err?.textContent).toContain('Access denied');
+  });
+
+  it('redirects to /dashboard when already authenticated on init', async () => {
+    // Configure module without creating component yet
+    const authMock = {
+      isAuthenticated: signal(true),
+      isAdmin: signal(true),
+      signInWithGoogle: vi.fn().mockResolvedValue(undefined),
+      signOut: vi.fn().mockResolvedValue(undefined),
+    };
+
+    TestBed.configureTestingModule({
+      imports: [LoginPageComponent],
+      providers: [
+        provideRouter([]),
+        { provide: AuthService, useValue: authMock },
+      ],
+    });
+
+    // Spy before component init fires
+    const router = TestBed.inject(Router);
+    const navigateSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true);
+
+    fixture = TestBed.createComponent(LoginPageComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(navigateSpy).toHaveBeenCalledWith(['/dashboard']);
   });
 });
