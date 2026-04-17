@@ -10,7 +10,7 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -103,6 +103,62 @@ html[data-theme='dark'] {
   --blue-400: #34c97a;
 }
 
+// ── Issue 2: Posts list page-header layout ────────────────────────────────────
+// PostsListComponent uses a nested .page-header-title/.page-header-actions
+// structure; Authors/Series apply flex via Tailwind on the host element.
+// Cannot modify library template — use :has() to target only the nested variant.
+.page-header:has(.page-header-actions) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+// ── Issue 3: Post editor tab strip ───────────────────────────────────────────
+// PostEditorPageComponent uses .tab-strip/.tab-btn classes that were dropped
+// from the library after the @foliokit upgrade. Global styles apply to
+// Emulated ViewEncapsulation components. Matches Material tab visual style.
+.tab-strip {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  flex-shrink: 0;
+}
+
+.tab-strip--equal .tab-btn {
+  flex: 1;
+}
+
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  height: 48px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.00625em;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--mat-sys-on-surface-variant);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+
+  &.active {
+    color: var(--mat-sys-primary);
+    border-bottom-color: var(--mat-sys-primary);
+  }
+
+  &:hover:not(.active) {
+    background-color: var(--mat-sys-surface-container-high);
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+// ── Encapsulated cms-admin-ui accents → brand ─────────────────────────────────
 /* Encapsulated cms-admin-ui accents → brand (components use hardcoded hex; !important wins) */
 folio-admin-setup .done-icon {
   color: #00843d !important;
