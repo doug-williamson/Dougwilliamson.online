@@ -65,6 +65,11 @@
             "allowedCommonJsDependencies": [
               "@grpc/grpc-js",
               "@grpc/proto-loader"
+            ],
+            "externalDependencies": [
+              "firebase-admin",
+              "firebase-admin/app",
+              "firebase-admin/firestore"
             ]
           },
           "configurations": {
@@ -98,7 +103,10 @@
               "exclude": [
                 "@foliokit/cms-ui",
                 "@foliokit/cms-core",
-                "@foliokit/cms-markdown"
+                "@foliokit/cms-markdown",
+                "firebase-admin",
+                "firebase-admin/app",
+                "firebase-admin/firestore"
               ]
             }
           },

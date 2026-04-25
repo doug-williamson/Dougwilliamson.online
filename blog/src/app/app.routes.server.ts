@@ -1,15 +1,10 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
-/**
- * FolioKit reads posts via the browser Firestore SDK. On the server, FIRESTORE is null,
- * so SSR for `/posts` can throw when resolvers run. CSR keeps reloads stable; SEO for
- * post HTML can be added later with Admin SDK + TransferState if needed.
- */
 export const serverRoutes: ServerRoute[] = [
-  { path: 'posts', renderMode: RenderMode.Client },
-  { path: 'posts/**', renderMode: RenderMode.Client },
-  {
-    path: '**',
-    renderMode: RenderMode.Server,
-  },
+  { path: '', renderMode: RenderMode.Server },
+  { path: 'posts', renderMode: RenderMode.Server },
+  { path: 'posts/:slug', renderMode: RenderMode.Server },
+  { path: 'about', renderMode: RenderMode.Server },
+  { path: 'links', renderMode: RenderMode.Server },
+  { path: '**', renderMode: RenderMode.Server },
 ];

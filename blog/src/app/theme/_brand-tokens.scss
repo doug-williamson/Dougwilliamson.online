@@ -1,0 +1,40 @@
+/*
+ * Brand primitives — Navy / Green / Gold.
+ *
+ * These are the ONLY color literals in the blog theme override. Every semantic
+ * token in styles.scss resolves to a var(--brand-*) reference or a color-mix()
+ * expression composed of them.
+ */
+:root {
+  --brand-navy:  #0C2340;
+  --brand-green: #00843D;
+  --brand-gold:  #C99700;
+  --brand-white: #FFFFFF;
+  --brand-ink:   #050608;
+
+  /* Navy tint ladder (light on 50 → dark on 900) */
+  --brand-navy-50:  color-mix(in srgb, var(--brand-navy)  4%, var(--brand-white));
+  --brand-navy-100: color-mix(in srgb, var(--brand-navy)  8%, var(--brand-white));
+  --brand-navy-200: color-mix(in srgb, var(--brand-navy) 16%, var(--brand-white));
+  --brand-navy-300: color-mix(in srgb, var(--brand-navy) 32%, var(--brand-white));
+  --brand-navy-400: color-mix(in srgb, var(--brand-navy) 55%, var(--brand-white));
+  --brand-navy-500: color-mix(in srgb, var(--brand-navy) 75%, var(--brand-white));
+  --brand-navy-600: var(--brand-navy);
+  --brand-navy-700: color-mix(in srgb, var(--brand-navy) 85%, var(--brand-ink));
+  --brand-navy-800: color-mix(in srgb, var(--brand-navy) 70%, var(--brand-ink));
+  --brand-navy-900: color-mix(in srgb, var(--brand-navy) 55%, var(--brand-ink));
+
+  /* Green tint ladder */
+  --brand-green-100: color-mix(in srgb, var(--brand-green) 14%, var(--brand-white));
+  --brand-green-200: color-mix(in srgb, var(--brand-green) 25%, var(--brand-white));
+  --brand-green-300: color-mix(in srgb, var(--brand-green) 45%, var(--brand-white));
+  --brand-green-400: color-mix(in srgb, var(--brand-green) 70%, var(--brand-white));
+  --brand-green-500: var(--brand-green);
+  --brand-green-600: color-mix(in srgb, var(--brand-green) 85%, var(--brand-ink));
+  --brand-green-700: color-mix(in srgb, var(--brand-green) 70%, var(--brand-ink));
+
+  /* Gold tint ladder */
+  --brand-gold-100: color-mix(in srgb, var(--brand-gold) 18%, var(--brand-white));
+  --brand-gold-500: var(--brand-gold);
+  --brand-gold-700: color-mix(in srgb, var(--brand-gold) 75%, var(--brand-ink));
+}
