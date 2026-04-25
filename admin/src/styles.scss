@@ -3,6 +3,7 @@
 @use '@foliokit/cms-ui/styles/reset';
 @use '@foliokit/cms-ui/styles/typography';
 @use '@foliokit/cms-ui/styles/focus';
+@use '@foliokit/cms-admin-ui/styles';
 
 @tailwind base;
 @tailwind components;
@@ -101,17 +102,6 @@ html[data-theme='dark'] {
 
   --blue-600: #4a90d9;
   --blue-400: #34c97a;
-}
-
-// ── Issue 2: Posts list page-header layout ────────────────────────────────────
-// PostsListComponent uses a nested .page-header-title/.page-header-actions
-// structure; Authors/Series apply flex via Tailwind on the host element.
-// Cannot modify library template — use :has() to target only the nested variant.
-.page-header:has(.page-header-actions) {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
 }
 
 // ── Issue 3: Post editor tab strip ───────────────────────────────────────────

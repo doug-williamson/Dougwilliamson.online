@@ -3,86 +3,176 @@
 @use '@foliokit/cms-ui/styles/typography';
 @use '@foliokit/cms-ui/styles/theme';
 
+@use './app/theme/brand-tokens';
 @use './styles/custom-theme';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Brand palette: Navy / Green / Gold — selectors must match FolioKit `html[data-theme]` so
-   these win over `mat.theme()` + `--mat-sys-primary: var(--teal-*)` from cms-ui `_theme.scss`. */
+/*
+ * Brand theme override — Navy / Green / Gold.
+ *
+ * Every semantic token FolioKit defines in [data-theme="light"] / ["dark"] at
+ * @foliokit/cms-ui/styles/tokens.css is respecified here so the default
+ * Editorial teal never bleeds through. Color literals live only in
+ * app/theme/_brand-tokens.scss; this file references var(--brand-*) only.
+ */
 html {
   height: 100%;
 }
 
 html[data-theme='light'] {
-  --bg: color-mix(in srgb, #0c2340 4.5%, var(--cloud-100));
-  --bg-subtle: color-mix(in srgb, #0c2340 3.5%, var(--cloud-200));
-  --surface-0: #ffffff;
-  --surface-1: color-mix(in srgb, #0c2340 3%, var(--cloud-100));
-  --surface-2: color-mix(in srgb, #0c2340 4%, var(--cloud-200));
-  --surface-3: color-mix(in srgb, #0c2340 5%, var(--cloud-300));
+  /* Backgrounds + surfaces */
+  --bg:             var(--brand-navy-50);
+  --bg-subtle:      var(--brand-navy-100);
+  --surface-0:      var(--brand-white);
+  --surface-1:      var(--brand-navy-50);
+  --surface-2:      var(--brand-navy-100);
+  --surface-3:      var(--brand-navy-200);
 
-  /* FolioKit components hardcode `--teal-*`; align to brand green + readable neutrals */
-  --teal-50: color-mix(in srgb, #00843d 8%, #ffffff);
-  --teal-100: color-mix(in srgb, #00843d 14%, #f7fafc);
-  --teal-200: color-mix(in srgb, #00843d 20%, #edf2f7);
-  --teal-300: color-mix(in srgb, #00843d 38%, #cbd5e0);
-  --teal-400: #1e9a5e;
-  --teal-500: #00843d;
-  --teal-600: #006d32;
-  --teal-700: #005628;
-  --teal-800: #0a3d24;
+  /* Borders */
+  --border:         var(--brand-navy-200);
+  --border-strong:  var(--brand-navy-300);
+  --border-accent:  var(--brand-green-500);
+  --border-width:   1px;
 
-  /* Interaction blue for Material filled buttons (navy #0c2340 reads as black on CTAs) */
-  --mat-sys-primary: #1a4b7c;
-  --mat-sys-secondary: #00843d;
-  --mat-sys-tertiary: #c99700;
-  --mat-sys-on-primary: #ffffff;
-  --mat-sys-on-secondary: #ffffff;
-  --mat-sys-on-tertiary: #000000;
-  --mat-sys-on-surface: var(--text-primary);
-  --mat-sys-surface: var(--surface-1);
-  --mat-sys-surface-variant: var(--surface-2);
-  --mat-sys-outline: var(--border-strong);
-  --mat-sys-background: var(--bg);
+  /* Text */
+  --text-primary:   var(--brand-navy);
+  --text-secondary: var(--brand-navy-800);
+  --text-muted:     var(--brand-navy-400);
+  --text-disabled:  var(--brand-navy-300);
+  --text-accent:    var(--brand-green-600);
+  --text-on-accent: var(--brand-white);
+  --text-on-dark:   var(--brand-navy-100);
 
-  --nav-active-bg: rgba(12, 35, 64, 0.07);
-  --nav-active-color: #0c2340;
+  /* Buttons */
+  --btn-primary-bg:    var(--brand-navy);
+  --btn-primary-text:  var(--brand-white);
+  --btn-primary-hover: var(--brand-navy-800);
+  --shadow-btn-primary: 0 1px 3px color-mix(in srgb, var(--brand-navy) 20%, transparent);
 
-  /* FolioKit + home hero: same interaction blue as --mat-sys-primary */
-  --btn-primary-bg: #1a4b7c;
-  --btn-primary-hover: #143d62;
+  /* Logo */
+  --logo-bg:   var(--brand-navy);
+  --logo-text: var(--brand-white);
+  --logo-dot:  var(--brand-gold);
+
+  /* Navigation */
+  --nav-active-bg:    color-mix(in srgb, var(--brand-navy) 7%, transparent);
+  --nav-active-text:  var(--brand-navy);
+  --nav-active-color: var(--nav-active-text);
+
+  /* Focus */
+  --focus-ring:   color-mix(in srgb, var(--brand-green) 22%, transparent);
+  --focus-border: var(--brand-green);
+
+  /* Shadows (brand-ink tinted, not pure black) */
+  --shadow-sm: 0 1px 3px  color-mix(in srgb, var(--brand-ink) 10%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, var(--brand-ink) 12%, transparent);
+  --shadow-lg: 0 8px 28px color-mix(in srgb, var(--brand-ink) 15%, transparent);
+  --shadow-xl: 0 20px 56px color-mix(in srgb, var(--brand-ink) 18%, transparent);
+
+  /* Status pills */
+  --status-draft-bg:       var(--brand-navy-100);
+  --status-draft-text:     var(--brand-navy-800);
+  --status-published-bg:   var(--brand-green-200);
+  --status-published-text: var(--brand-green-700);
+  --status-scheduled-bg:   var(--brand-gold-100);
+  --status-scheduled-text: var(--brand-gold-700);
+  --status-archived-bg:    var(--brand-navy-200);
+  --status-archived-text:  var(--brand-navy-900);
+
+  /* Material Design 3 bridge */
+  --mat-sys-primary:          var(--brand-navy);
+  --mat-sys-secondary:        var(--brand-green);
+  --mat-sys-tertiary:         var(--brand-gold);
+  --mat-sys-on-primary:       var(--brand-white);
+  --mat-sys-on-secondary:     var(--brand-white);
+  --mat-sys-on-tertiary:      var(--brand-ink);
+  --mat-sys-on-surface:       var(--text-primary);
+  --mat-sys-surface:          var(--surface-1);
+  --mat-sys-surface-variant:  var(--surface-2);
+  --mat-sys-outline:          var(--border-strong);
+  --mat-sys-background:       var(--bg);
+
+  color-scheme: light;
 }
 
 html[data-theme='dark'],
 :root[data-theme='dark'] {
-  --bg: color-mix(in srgb, #0c2340 12%, #1a1f2e);
-  --bg-subtle: color-mix(in srgb, #0c2340 10%, #1e2535);
-  --surface-0: color-mix(in srgb, #0c2340 8%, #242b3d);
-  --surface-1: color-mix(in srgb, #0c2340 9%, #2a3347);
-  --surface-2: color-mix(in srgb, #0c2340 10%, #303b52);
-  --surface-3: color-mix(in srgb, #0c2340 11%, #3a4660);
+  /* Backgrounds + surfaces */
+  --bg:             var(--brand-navy-900);
+  --bg-subtle:      var(--brand-navy-800);
+  --surface-0:      color-mix(in srgb, var(--brand-navy) 80%, var(--brand-ink));
+  --surface-1:      color-mix(in srgb, var(--brand-navy) 70%, var(--brand-ink));
+  --surface-2:      color-mix(in srgb, var(--brand-navy) 60%, var(--brand-ink));
+  --surface-3:      color-mix(in srgb, var(--brand-navy) 50%, var(--brand-ink));
 
-  --teal-300: #5fd4a0;
-  --teal-400: #34c97a;
-  --teal-500: #00843d;
+  /* Borders */
+  --border:         color-mix(in srgb, var(--brand-white) 10%, transparent);
+  --border-strong:  color-mix(in srgb, var(--brand-white) 18%, transparent);
+  --border-accent:  color-mix(in srgb, var(--brand-green) 45%, transparent);
+  --border-width:   1px;
 
-  --mat-sys-primary: #4a90d9;
-  --mat-sys-secondary: #00843d;
-  --mat-sys-tertiary: #c99700;
-  --mat-sys-on-primary: #ffffff;
-  --mat-sys-on-secondary: #ffffff;
-  --mat-sys-on-tertiary: #000000;
-  --mat-sys-on-surface: var(--text-primary);
-  --mat-sys-surface: var(--surface-1);
-  --mat-sys-surface-variant: var(--surface-2);
-  --mat-sys-outline: var(--border-strong);
-  --mat-sys-background: var(--bg);
+  /* Text */
+  --text-primary:   var(--brand-navy-100);
+  --text-secondary: var(--brand-navy-300);
+  --text-muted:     var(--brand-navy-400);
+  --text-disabled:  var(--brand-navy-500);
+  --text-accent:    var(--brand-green-300);
+  --text-on-accent: var(--brand-navy);
+  --text-on-dark:   var(--brand-navy-100);
 
-  /* fix: navy-on-dark was near-invisible; green tint matches text-accent in dark mode */
-  --nav-active-bg: rgba(0, 132, 61, 0.15);
-  --nav-active-color: var(--text-accent);
+  /* Buttons */
+  --btn-primary-bg:    var(--brand-green);
+  --btn-primary-text:  var(--brand-white);
+  --btn-primary-hover: var(--brand-green-300);
+  --shadow-btn-primary: 0 1px 3px color-mix(in srgb, var(--brand-ink) 30%, transparent);
+
+  /* Logo */
+  --logo-bg:   color-mix(in srgb, var(--brand-navy) 60%, var(--brand-white));
+  --logo-text: var(--brand-white);
+  --logo-dot:  var(--brand-gold);
+
+  /* Navigation */
+  --nav-active-bg:    color-mix(in srgb, var(--brand-green) 14%, transparent);
+  --nav-active-text:  var(--brand-green-300);
+  --nav-active-color: var(--nav-active-text);
+
+  /* Focus */
+  --focus-ring:   color-mix(in srgb, var(--brand-green) 30%, transparent);
+  --focus-border: var(--brand-green-300);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px   color-mix(in srgb, var(--brand-ink) 30%, transparent);
+  --shadow-md: 0 3px 10px  color-mix(in srgb, var(--brand-ink) 35%, transparent);
+  --shadow-lg: 0 8px 28px  color-mix(in srgb, var(--brand-ink) 40%, transparent);
+  --shadow-xl: 0 20px 56px color-mix(in srgb, var(--brand-ink) 50%, transparent);
+
+  /* Status pills */
+  --status-draft-bg:       color-mix(in srgb, var(--brand-navy-400) 14%, transparent);
+  --status-draft-text:     var(--brand-navy-300);
+  --status-published-bg:   color-mix(in srgb, var(--brand-green) 22%, transparent);
+  --status-published-text: var(--brand-green-300);
+  --status-scheduled-bg:   color-mix(in srgb, var(--brand-gold) 22%, transparent);
+  --status-scheduled-text: var(--brand-gold-100);
+  --status-archived-bg:    color-mix(in srgb, var(--brand-navy-400) 22%, transparent);
+  --status-archived-text:  var(--brand-navy-200);
+
+  /* Material Design 3 bridge */
+  --mat-sys-primary:          var(--brand-green);
+  --mat-sys-secondary:        var(--brand-gold);
+  --mat-sys-tertiary:         var(--brand-navy-300);
+  --mat-sys-on-primary:       var(--brand-white);
+  --mat-sys-on-secondary:     var(--brand-ink);
+  --mat-sys-on-tertiary:      var(--brand-navy);
+  --mat-sys-on-surface:       var(--text-primary);
+  --mat-sys-surface:          var(--surface-1);
+  --mat-sys-surface-variant:  var(--surface-2);
+  --mat-sys-outline:          var(--border-strong);
+  --mat-sys-background:       var(--bg);
+
+  color-scheme: dark;
 }
 
 body {

@@ -4,3 +4,10 @@ runConfig:
   minInstances: 0
   maxInstances: 10
   concurrency: 80
+
+# Public Firebase Web config is embedded in src/environments/environment.prod.ts
+# and shipped in the browser bundle (standard for client SDK usage). App Hosting
+# injects FIREBASE_CONFIG and FIREBASE_WEBAPP_CONFIG automatically at runtime;
+# no secrets are required here. Add entries to `env:` below if the blog ever
+# needs build- or run-time configuration that isn't already in environment.*.ts.
+env: []
