@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "emulator": "firebase emulators:start --only auth,firestore,storage --config ../firebase.emulator.json",
-    "seed:emulator": "node scripts/seed-emulator.js"
+    "seed:emulator": "node scripts/seed-emulator.js",
+    "deploy": "ng build && cd .. && firebase deploy --only hosting:admin --project dougwilliamson-online"
   },
   "private": true,
   "packageManager": "npm@10.9.4",
