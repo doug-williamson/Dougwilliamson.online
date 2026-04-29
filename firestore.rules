@@ -25,6 +25,11 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    match /series/{seriesId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // ── Multi-tenant paths (siteId !== 'default') ──────────────────────────
     // FolioKit resolves all collection paths to tenants/{tenantId}/...
     // when siteId is a non-default value (e.g. 'dougwilliamson').
