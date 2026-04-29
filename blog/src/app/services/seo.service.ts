@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { IBlogSeoService, buildPageTitle } from '@foliokit/cms-core';
-import type { BlogPost, SiteConfig, AboutPageConfig } from '@foliokit/cms-core';
+import type { BlogPost, SiteConfig, AboutPageConfig, LinksPageConfig } from '@foliokit/cms-core';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService implements IBlogSeoService {
@@ -18,6 +18,35 @@ export class SeoService implements IBlogSeoService {
     if (canonicalUrl) {
       this.meta.updateTag({ rel: 'canonical', href: canonicalUrl });
     }
+  }
+
+  setHomeMeta(config: SiteConfig, baseUrl: string): void {
+    const title = config.pages?.home?.seo?.title ?? config.siteName ?? 'Doug Williamson';
+    this.title.setTitle(buildPageTitle(title));
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:url', content: baseUrl });
+    if (config.description) {
+      this.meta.updateTag({ name: 'description', content: config.description });
+      this.meta.updateTag({ property: 'og:description', content: config.description });
+    }
+  }
+
+  setBlogMeta(config: SiteConfig, baseUrl: string, tag?: string | null): void {
+    const baseTitle = config.pages?.blog?.seo?.title ?? 'Blog';
+    const title = tag ? `${baseTitle} #${tag}` : baseTitle;
+    this.title.setTitle(buildPageTitle(title));
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:url', content: `${baseUrl}/posts${tag ? `?tag=${tag}` : ''}` });
+    if (config.description) {
+      this.meta.updateTag({ name: 'description', content: config.description });
+    }
+  }
+
+  setLinksMeta(config: LinksPageConfig, baseUrl: string): void {
+    const title = config.title ?? 'Links';
+    this.title.setTitle(buildPageTitle(title));
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:url', content: `${baseUrl}/links` });
   }
 
   setPostMeta(post: BlogPost, baseUrl: string, authorDisplayName?: string): void {
