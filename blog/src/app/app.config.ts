@@ -3,13 +3,12 @@ import { provideRouter } from '@angular/router';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { BLOG_SEO_SERVICE, provideFolioKit } from '@foliokit/cms-core';
+import { provideDefaultBlogSeo, provideFolioKit } from '@foliokit/cms-core';
 import { SHELL_CONFIG, type ShellConfig, provideCmsUiMatIcons } from '@foliokit/cms-ui';
 import { MARKED_OPTIONS, provideMarkdown } from 'ngx-markdown';
 
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
-import { SeoService } from './services/seo.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +23,7 @@ export const appConfig: ApplicationConfig = {
       siteId: 'dougwilliamson',
       useEmulator: environment.useEmulator,
     }),
-    { provide: BLOG_SEO_SERVICE, useExisting: SeoService },
+    provideDefaultBlogSeo(),
     provideMarkdown({ markedOptions: { provide: MARKED_OPTIONS, useValue: { gfm: true } } }),
     {
       provide: SHELL_CONFIG,
