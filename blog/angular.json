@@ -57,7 +57,12 @@
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
-              "allowedHosts": []
+              "allowedHosts": [
+                "dougwilliamson.online",
+                "www.dougwilliamson.online",
+                "blog--dougwilliamson-online.us-east4.hosted.app",
+                "localhost"
+              ]
             },
             "ssr": {
               "entry": "src/server.ts"
